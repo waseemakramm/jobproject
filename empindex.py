@@ -440,12 +440,12 @@ def employability_index(user_id,job_id,courses,certifications):
     return overallscore
     #print("Employability Index: ",int(overallscore))
     
-args=sys.argv
+#args=sys.argv
 
 def main():
     #Inputs[User_id, Job_type,Course_id_string,Certification_id_string]
-    #gotscore=employability_index(1,54,"1","1")
-    gotscore=employability_index(args[1],args[2],args[3],args[4])
+    gotscore=employability_index(1,54,"1","1")
+    #gotscore=employability_index(args[1],args[2],args[3],args[4])
     print(gotscore)
     #gotscore=employability_index(1,54,"","")
 
