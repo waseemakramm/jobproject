@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# In[4]:
+
+
+#!/usr/bin/env python
+# coding: utf-8
+
 # In[23]:
 
 
@@ -21,17 +27,23 @@ mydb = mysql.connector.connect(
   host="localhost",
   port="6118",
   user="root",
-  password=''
+  password=""
 )
 
 
 def getdata(user_id):
-    mycursor = mydb.cursor()
-    mycursor.execute("SELECT file FROM bayt_data.payment where user_id=%s",(user_id,))
-    myresult = mycursor.fetchall()
+    #mycursor = mydb.cursor()
+    #mycursor.execute("SELECT file FROM bayt_data.payment where user_id=%s",(user_id,))
+    #myresult = mycursor.fetchall()
     #print(myresult[0][0])
-    data = ResumeParser(str(myresult[0][0]), skills_file='C:\\Users\\Waseem Akram\\pyresparser\\bothskills - Copy.csv').get_extracted_data()
+
+    #data = ResumeParser(str(myresult[0][0]), skills_file='C:\\xampp\\htdocs\\doanalytica\\web\\py\\bothskills - Copy.csv').get_extracted_data()
+    #print(user_id)
+    cvpath="C:\\xampp\\htdocs\\doanalytica\\web\\uploads\\"+str(user_id)+".pdf"
+    data = ResumeParser(cvpath, skills_file='C:\\xampp\\htdocs\\doanalytica\\web\\py\\bothskills - Copy.csv').get_extracted_data()
+    
     extskills=list(data.values())[3]
+    #print(extskills)
     
     #Tech Skills
     mycursor1 = mydb.cursor()
@@ -221,7 +233,7 @@ def finalfunc(user_id,skilllist,ngram):
     mycursor = mydb.cursor()
     
     gotskills=get_largest_match(extskills, skilllist, ngram)
-    
+    #print(gotskills)
     forscore=[]
     j=0
     for i in range(1,10):
@@ -239,7 +251,7 @@ def scores(user_id):
     scores=[]
     skills=getskillsdata()
     for x in range (0,5):
-        gotdata=finalfunc(1,skills[x],2)
+        gotdata=finalfunc(user_id,skills[x],2)
         data.append(gotdata[1])
         scores.append(gotdata[0])
         
@@ -253,11 +265,21 @@ def scores(user_id):
 args=sys.argv    
    
 def main():
+    #print(args[1])
+
     print(scores(args[1]))
+    #print(scores(5))
+
     
     
 if __name__ == "__main__":
     main()
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
