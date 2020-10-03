@@ -31,7 +31,7 @@ mydb = mysql.connector.connect(
 )
 
 
-def getdata(user_id):
+def getdata(user_id,cv_path,skillsfile_path):
     #mycursor = mydb.cursor()
     #mycursor.execute("SELECT file FROM bayt_data.payment where user_id=%s",(user_id,))
     #myresult = mycursor.fetchall()
@@ -39,8 +39,14 @@ def getdata(user_id):
 
     #data = ResumeParser(str(myresult[0][0]), skills_file='C:\\xampp\\htdocs\\doanalytica\\web\\py\\bothskills - Copy.csv').get_extracted_data()
     #print(user_id)
-    cvpath="C:\\xampp\\htdocs\\doanalytica\\web\\uploads\\"+str(user_id)+".pdf"
-    data = ResumeParser(cvpath, skills_file='C:\\xampp\\htdocs\\doanalytica\\web\\py\\bothskills - Copy.csv').get_extracted_data()
+    #cvpath="C:\\xampp\\htdocs\\doanalytica\\web\\uploads\\"+str(user_id)+".pdf"
+
+    cvpath=str(cv_path) + str(user_id)+".pdf"
+    #print(cvpath)
+    skillsfilepath=str(skillsfile_path)
+    data = ResumeParser(cvpath, skills_file=skillsfilepath).get_extracted_data()
+
+    #data = ResumeParser(cvpath, skills_file='C:\\xampp\\htdocs\\doanalytica\\web\\py\\bothskills - Copy.csv').get_extracted_data()
     
     extskills=list(data.values())[3]
     #print(extskills)
@@ -226,8 +232,8 @@ def getskillsdata():
     #print(techkills)
     return [techskills,softskills,languages,frameworks,certs]
     
-def finalfunc(user_id,skilllist,ngram):
-    myskills=getdata(user_id)
+def finalfunc(user_id,skilllist,ngram,cv_path,skillsfile):
+    myskills=getdata(user_id,cv_path,skillsfile)
     extskills=' '.join(map(str, myskills))
     
     mycursor = mydb.cursor()
@@ -246,12 +252,12 @@ def finalfunc(user_id,skilllist,ngram):
     return [score,gotskills];
     
     
-def scores(user_id):
+def scores(user_id,cv_path,skillsfile):
     data=[]
     scores=[]
     skills=getskillsdata()
     for x in range (0,5):
-        gotdata=finalfunc(user_id,skills[x],2)
+        gotdata=finalfunc(user_id,skills[x],2,cv_path,skillsfile)
         data.append(gotdata[1])
         scores.append(gotdata[0])
         
@@ -267,7 +273,7 @@ args=sys.argv
 def main():
     #print(args[1])
 
-    print(scores(args[1]))
+    print(scores(args[1],args[2],args[3]))
     #print(scores(5))
 
     
