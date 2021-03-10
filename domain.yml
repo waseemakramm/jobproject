@@ -1,0 +1,51 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - fine
+
+forms:
+  fine_reason:
+    fine_reason:
+      - type: from_text
+    
+slots:
+  fine_reason:
+    type: text
+    influence_conversation: false
+
+
+responses:
+  utter_hi:
+  - text: "Hi, How's it going?"
+
+  utter_whyfine:
+  - text: "Why just fine?"
+
+  utter_fine_if_wants_to_talk:
+  - text: "Okay, do you want to talk about it?"
+
+  utter_okay:
+  - text: "Okay."
+
+  utter_whats_going_on:
+  - text: "What's going on?"
+
+  utter_you_entered:
+  - text: "fine reason: {fine_reason}"
+
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_goodbye:
+  - text: "Bye"
+
+actions:
+  - fine_reason
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

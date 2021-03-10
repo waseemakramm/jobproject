@@ -1,0 +1,33 @@
+version: "2.0"
+
+stories:
+
+- story: path1_fine1
+  steps:
+  - action: utter_hi
+  - intent: fine
+  - action: utter_whyfine
+  - action: fine_reason
+  - action: utter_you_entered
+  - action: utter_fine_if_wants_to_talk
+  - intent: affirm
+  - action: utter_whats_going_on
+
+- story: path1_fine2
+  steps:
+  - action: utter_hi
+  - intent: fine
+  - action: utter_whyfine
+  - action: fine_reason
+  - action: utter_you_entered
+  - action: utter_fine_if_wants_to_talk
+  - intent: deny
+  - action: utter_okay
+
+- story: path1_fine3
+  steps:
+  - action: utter_hi
+  - intent: fine
+  - action: utter_whyfine
+  - action: fine_reason
+  - action: utter_you_entered
